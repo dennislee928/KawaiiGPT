@@ -1,68 +1,97 @@
 # KawaiiGPT
 
-> Modified and maintained by [dennislee928](https://github.com/dennislee928).
-> Original project by MrSanZz — license declared free for any use case, no warranty.
+KawaiiGPT is a terminal-based AI chat application with support for multiple providers, plus a separate `pentest/` framework for authorized security assessment workflows.
 
-## ref to https://gbhackers.com/kawaiigpt-a-free-wormgpt-clone-powered/
+This repository is maintained by [dennislee928](https://github.com/dennislee928). The original project attribution in the repository points to MrSanZz and states the work is free for any use case with no warranty.
 
 <div align="center">
-    <img src="kawaii.svg" width="50%" />
+  <img src="kawaii.svg" width="50%" alt="KawaiiGPT logo" />
 </div>
 
 ![KawaiiGPT screenshot](.Assets/%E8%9E%A2%E5%B9%95%E6%93%B7%E5%8F%96%E7%95%AB%E9%9D%A2%202026-04-30%20140541.png)
 
-A terminal AI chat interface that works with multiple LLM providers — including free and fully local options.
+## What Is Here
 
-## Use Cases / 使用情境
+- `chat.py`: interactive CLI chat client
+- `docker-compose.yml`: local Ollama + chat stack
+- `pentest/`: orchestrated penetration testing framework with per-module runners and aggregate reporting
+- `use_case.md`: bilingual project notes on legitimate use cases, risks, and guardrails
 
-See `use_case.md` for a bilingual (EN/繁中) overview of legitimate use cases, risks, and recommended guardrails.
+## Chat App
 
----
+The chat client auto-detects the backend from environment variables:
 
-## Quick Start
+| Priority | Variable | Provider | Default Model |
+|---|---|---|---|
+| 1 | `ANTHROPIC_API_KEY` | Anthropic Claude | `claude-opus-4-7` |
+| 2 | `GROQ_API_KEY` | Groq | `llama-3.3-70b-versatile` |
+| 3 | neither set | Ollama at `http://localhost:11434` | `llama3.2` |
 
-### Option 1 — Groq (free API, fastest)
+Optional overrides:
 
-1. Get a free API key at [console.groq.com](https://console.groq.com)
-2. Run:
+- `ANTHROPIC_MODEL`
+- `GROQ_MODEL`
+- `OLLAMA_HOST`
+- `OLLAMA_MODEL`
+
+### Quick Start
+
+#### Option 1: Groq
 
 ```powershell
-# Windows
 pip install -r requirements.txt
 $env:GROQ_API_KEY = "gsk_..."
 python chat.py
 ```
 
 ```bash
-# Linux / macOS
 pip install -r requirements.txt
 export GROQ_API_KEY="gsk_..."
 python chat.py
 ```
 
-### Option 2 — Ollama in Docker (free, fully local, no API key)
+#### Option 2: Ollama in Docker
 
 Requires [Docker Desktop](https://www.docker.com/products/docker-desktop/).
 
 ```bash
 docker-compose up
-# In a second terminal:
 docker attach kawaiigpt-chat-1
 ```
 
-First run downloads Ollama and pulls `llama3.2` (~2 GB). Subsequent starts are instant.
+On first run, Ollama downloads the selected model. By default the stack uses `llama3.2`.
 
-### Option 3 — Ollama without Docker
+To switch models:
 
-1. Install Ollama from [ollama.com](https://ollama.com/download)
-2. Run:
+```bash
+OLLAMA_MODEL=mistral docker-compose up
+```
+
+While the stack is running:
+
+```bash
+docker-compose ps
+docker logs -f kawaiigpt-ollama-1
+docker-compose down
+```
+
+#### Option 3: Ollama without Docker
+
+1. Install [Ollama](https://ollama.com/download).
+2. Pull a model and start the chat client:
 
 ```bash
 ollama pull llama3.2
 python chat.py
 ```
 
-### Option 4 — Claude (Anthropic API, paid)
+#### Option 4: Anthropic Claude
+
+```powershell
+pip install -r requirements.txt
+$env:ANTHROPIC_API_KEY = "sk-ant-..."
+python chat.py
+```
 
 ```bash
 pip install -r requirements.txt
@@ -70,88 +99,18 @@ export ANTHROPIC_API_KEY="sk-ant-..."
 python chat.py
 ```
 
----
-
-## Provider Auto-Detection
-
-`chat.py` picks the backend automatically based on which environment variable is set:
-
-| Priority | Variable | Provider | Cost |
-|---|---|---|---|
-| 1 | `ANTHROPIC_API_KEY` | Claude (Anthropic) | Paid |
-| 2 | `GROQ_API_KEY` | Groq | Free tier |
-| 3 | *(neither set)* | Ollama at `localhost:11434` | Free / local |
-
----
-
-## Docker Architecture
-
-```
-docker-compose up
-│
-├── ollama (port 11434)
-│     └── runs llama3.2 locally, free
-│
-└── chat
-      └── chat.py → talks to Ollama via HTTP
-```
-
-To switch the Docker stack to a different model:
-
-```bash
-OLLAMA_MODEL=mistral docker-compose up
-```
-
-To use Groq inside Docker instead of Ollama, edit `docker-compose.yml`:
-
-```yaml
-environment:
-  - GROQ_API_KEY=gsk_...
-  # remove OLLAMA_HOST
-```
-
-```bash
-#Useful commands while the stack is running:
-
-  # See what's running
-  docker-compose ps
-
-  # Watch ollama logs separately
-  docker logs -f kawaiigpt-ollama-1
-
-  # Detach from chat WITHOUT stopping it
-  # (press)  Ctrl+P  then  Ctrl+Q
-
-  # Stop everything cleanly
-  docker-compose down
-
-  # Stop but keep downloaded models for next time
-  docker-compose down   # (models are in the 'ollama_data' volume, not deleted)
-
-  To switch models (e.g. Mistral instead of Llama):
-
-  docker-compose down
-  $env:OLLAMA_MODEL = "mistral"
-  docker-compose up
-
-  Once llama3.2 finishes downloading you're fully offline — no API keys, no internet needed for future sessions. The model lives in the kawaiigpt_ollama_data Docker volume and persists 
-  across restarts.
-```
-
----
-
-## Chat Commands
+### Chat Commands
 
 | Command | Action |
 |---|---|
-| `exit` / `quit` | Quit |
-| `reset` | Clear conversation history |
-| `help` | Show commands |
-| Up arrow | Recall previous inputs |
+| `exit`, `quit`, `q` | Quit |
+| `reset` | Clear the in-memory conversation |
+| `help` | Show the built-in command help |
+| Up arrow | Recall previous inputs via prompt history |
 
----
+## Installation
 
-## Installation (Windows)
+### Windows
 
 ```powershell
 git clone https://github.com/dennislee928/KawaiiGPT
@@ -160,7 +119,7 @@ pip install -r requirements.txt
 python chat.py
 ```
 
-## Installation (Linux / macOS)
+### Linux / macOS
 
 ```bash
 git clone https://github.com/dennislee928/KawaiiGPT
@@ -169,33 +128,72 @@ pip install -r requirements.txt
 python chat.py
 ```
 
----
+## Docker Notes
 
-## Files
+The Compose stack starts:
+
+- `ollama` on port `11434`
+- `chat`, configured to talk to the Ollama service by default
+
+To use Groq or Anthropic inside Docker, adjust the `chat` service environment in `docker-compose.yml` and remove `OLLAMA_HOST` when switching away from Ollama.
+
+## Pentest Framework
+
+The `pentest/` directory contains a workflow-driven assessment framework with shared utilities, per-module runners, and aggregate report generation.
+
+Key entrypoints:
+
+- `pentest/workflow.yaml`: module list, dependencies, and enabled/disabled state
+- `pentest/run-pentest.py`: validates configs, resolves dependency order, runs enabled modules, and writes aggregate JSON/HTML reports
+- `pentest/common/`: shared authorization checks, result schema helpers, and report templating
+
+The default workflow currently enables `01`, `02`, `03`, `04`, `05`, `07`, `09`, and `10`. Module `06-PasswordCracking` is disabled by default because it requires operator-supplied hash material and wordlists. Module `08-BluetoothWiFiScanning` is disabled by default because it requires a Linux host plus compatible wireless/Bluetooth hardware.
+
+### Safety and Authorization
+
+The pentest framework is intended only for authorized engagements. Before a module can run successfully, its `config.yaml` must be populated with real authorization metadata such as the operator name, engagement reference, and non-empty target scope. Placeholder values are rejected by the orchestrator and module-level checks.
+
+The orchestrator follows dependency order from `pentest/workflow.yaml`, writes aggregate reports to `pentest/reports/`, and defaults `continue_on_error` to `false`.
+
+`07-SocialEngineeringTesting` is review-only template generation. It does not send emails, track users, or collect credentials.
+
+Example dry run:
+
+```bash
+python pentest/run-pentest.py --dry-run
+```
+
+Run specific modules by name:
+
+```bash
+python pentest/run-pentest.py --module 02-NetworkScanning --module 03-WebApplicationTesting
+```
+
+Reports are collected under `pentest/reports/`.
+
+Current verification is limited to structure and smoke checks. Full end-to-end scans are not validated until real authorization data, target scope, and required runtime environments are provided.
+
+## Repository Files
 
 | File | Purpose |
 |---|---|
-| `chat.py` | Main chat interface — multi-provider |
-| `docker-compose.yml` | Ollama + chat stack |
-| `Dockerfile` | Container definition for chat app |
+| `chat.py` | Main multi-provider chat interface |
+| `docker-compose.yml` | Ollama + chat Docker stack |
+| `Dockerfile` | Container image for the chat app |
 | `requirements.txt` | Python dependencies |
-| `use_case.md` | Use cases, risks, and guardrails (EN/繁中) |
-| `kawai.py` | Original KawaiiGPT script (Linux/Android) |
-| `install.py` | Original installer (Linux/Android/Termux) |
-
----
+| `use_case.md` | Use cases, risks, and guardrails |
+| `kawai.py` | Original KawaiiGPT script |
+| `install.py` | Original installer |
 
 ## Recommended Free Models
 
-| Model | Provider | Good for |
+| Model | Provider | Good For |
 |---|---|---|
 | `llama3.2` | Ollama / Groq | General chat |
 | `llama-3.3-70b-versatile` | Groq | Complex reasoning |
-| `mistral` | Ollama | Fast, lightweight |
-| `gemma2` | Ollama | Google's open model |
-| `deepseek-r1:8b` | Ollama | Reasoning tasks |
-
----
+| `mistral` | Ollama | Lightweight local use |
+| `gemma2` | Ollama | Open model alternative |
+| `deepseek-r1:8b` | Ollama | Reasoning-oriented tasks |
 
 ## License
 

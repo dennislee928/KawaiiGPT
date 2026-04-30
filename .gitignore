@@ -2,5 +2,7 @@
 .env
 /.claude
 .chat_history
+__pycache__/
+*.py[cod]
 pentest/*/results/
 pentest/reports/
