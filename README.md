@@ -11,6 +11,10 @@
 
 A terminal AI chat interface that works with multiple LLM providers — including free and fully local options.
 
+## Use Cases / 使用情境
+
+See `use_case.md` for a bilingual (EN/繁中) overview of legitimate use cases, risks, and recommended guardrails.
+
 ---
 
 ## Quick Start
@@ -173,6 +177,7 @@ python chat.py
 | `docker-compose.yml` | Ollama + chat stack |
 | `Dockerfile` | Container definition for chat app |
 | `requirements.txt` | Python dependencies |
+| `use_case.md` | Use cases, risks, and guardrails (EN/繁中) |
 | `kawai.py` | Original KawaiiGPT script (Linux/Android) |
 | `install.py` | Original installer (Linux/Android/Termux) |
 
