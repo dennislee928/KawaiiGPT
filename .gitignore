@@ -24,3 +24,4 @@ TestResults.xml
 #Trunk folder
 .trunk/
 /analysis
+analysis/sample-inspection.json

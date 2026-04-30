@@ -1,5 +1,5 @@
 ﻿{
-    "generated_at_utc":  "2026-04-30T05:04:45.9084205Z",
+    "generated_at_utc":  "2026-04-30T05:07:38.7783437Z",
     "sample_path":  "C:\\Users\\dennis.lee\\Desktop\\KawaiiGPT_x64.exe",
     "size_bytes":  148744704,
     "created_utc":  "2026-04-30T01:52:34.0954265Z",
@@ -8,7 +8,7 @@
     "sha256":  "2ACD59C1E2EE7E64B610C7A9CF104BEC36330DBC8360C1CF778CC932D2328F0D",
     "authenticode":  {
                          "status":  "NotSigned",
-                         "status_message":  "The file C:\\Users\\dennis.lee\\Desktop\\KawaiiGPT_x64.exe is not digitally signed. You cannot run this script on the current system. For more information about running scripts and setting execution policy, see about_Execution_Policies at https:/go.microsoft.com/fwlink/?LinkID=135170",
+                         "status_message":  "檔案 C:\\Users\\dennis.lee\\Desktop\\KawaiiGPT_x64.exe 未經數位簽署。您無法在目前的系統上執行此指令碼。如需關於執行指令碼及設定執行原則的詳細資訊，請參閱 about_Execution_Policies (網址為 https:/go.microsoft.com/fwlink/?LinkID=135170)",
                          "signer_subject":  null
                      },
     "pe_header":  {

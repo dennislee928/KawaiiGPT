@@ -1,5 +1,5 @@
 ﻿{
-    "generated_at_utc":  "2026-04-30T05:04:33.0021656Z",
+    "generated_at_utc":  "2026-04-30T05:07:37.3154396Z",
     "root":  "C:\\Users\\dennis.lee\\Documents\\GitHub\\AXIOM-Rule-SIEM-engine-latest\\KawaiiGPT",
     "files":  [
                   {
@@ -10,9 +10,9 @@
                   },
                   {
                       "relative_path":  ".gitignore",
-                      "size_bytes":  392,
-                      "last_write":  "2026-04-30T01:48:46.9655435Z",
-                      "sha256":  "5240A2AEA0CA3297AE2BDF60EB91459FA1444662F54E7A42736A30D985E18E76"
+                      "size_bytes":  418,
+                      "last_write":  "2026-04-30T05:05:28.6379415Z",
+                      "sha256":  "40EB66646F9FFE8CBD4079CC79231A6303CF5C8875BF2FE7D22C5F5C17DD2DFC"
                   },
                   {
                       "relative_path":  "Dockerfile",
@@ -99,6 +99,18 @@
                       "sha256":  "B11AAD5151BC698339BF3896A3F654D3CA5A8DB76D213106E6E5929E9CA7E7A6"
                   },
                   {
+                      "relative_path":  "analysis\\sample-inspection.json",
+                      "size_bytes":  1202,
+                      "last_write":  "2026-04-30T05:06:42.2098359Z",
+                      "sha256":  "A910AC914271BD1F4436C9B80F5683E356625572B188BB41B4A78FF883322458"
+                  },
+                  {
+                      "relative_path":  "analysis\\source-manifest.json",
+                      "size_bytes":  6667,
+                      "last_write":  "2026-04-30T05:06:00.8761242Z",
+                      "sha256":  "176576D69F97561CAEA5935A04463BDCB3DC2024A4A9D9CD7C38E17D9A7D8330"
+                  },
+                  {
                       "relative_path":  "scripts\\collect-source-manifest.ps1",
                       "size_bytes":  1131,
                       "last_write":  "2026-04-30T05:04:25.5957981Z",
@@ -106,9 +118,9 @@
                   },
                   {
                       "relative_path":  "scripts\\inspect-pe-sample.ps1",
-                      "size_bytes":  1952,
-                      "last_write":  "2026-04-30T05:04:25.6513190Z",
-                      "sha256":  "1263404A1621195D2E6E2FED3F7F8A7C0D074FDB678C8916508B942766F869CB"
+                      "size_bytes":  1992,
+                      "last_write":  "2026-04-30T05:04:38.4358632Z",
+                      "sha256":  "DB834C3B2E66E1B6163A2C894431119AF9DE5B8E46CFE874FDAE6BDB72F1F39A"
                   }
               ]
 }
