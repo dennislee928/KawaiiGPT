@@ -104,6 +104,34 @@ environment:
   # remove OLLAMA_HOST
 ```
 
+```bash
+#Useful commands while the stack is running:
+
+  # See what's running
+  docker-compose ps
+
+  # Watch ollama logs separately
+  docker logs -f kawaiigpt-ollama-1
+
+  # Detach from chat WITHOUT stopping it
+  # (press)  Ctrl+P  then  Ctrl+Q
+
+  # Stop everything cleanly
+  docker-compose down
+
+  # Stop but keep downloaded models for next time
+  docker-compose down   # (models are in the 'ollama_data' volume, not deleted)
+
+  To switch models (e.g. Mistral instead of Llama):
+
+  docker-compose down
+  $env:OLLAMA_MODEL = "mistral"
+  docker-compose up
+
+  Once llama3.2 finishes downloading you're fully offline — no API keys, no internet needed for future sessions. The model lives in the kawaiigpt_ollama_data Docker volume and persists 
+  across restarts.
+```
+
 ---
 
 ## Chat Commands

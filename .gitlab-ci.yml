@@ -1,0 +1,27 @@
+# Semgrep SAST (rd/ci-security) + GitLab Secret Detection template
+include:
+  - project: "rd/ci-security"
+    ref: main
+    file: "semgrep.gitlab-ci.yml"
+
+
+workflow:
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "dev"'
+      when: always
+    - if: '$CI_COMMIT_BRANCH == "stagging"'
+      when: always
+    - if: '$CI_COMMIT_BRANCH == "main"'
+      when: always
+
+
+# semgrep
+
+stages:
+  - prepare
+  - sbom
+  - trivy
+  - sast
+  - notify
+
+
