@@ -3,6 +3,8 @@
 > Modified and maintained by [dennislee928](https://github.com/dennislee928).
 > Original project by MrSanZz — license declared free for any use case, no warranty.
 
+## ref to https://gbhackers.com/kawaiigpt-a-free-wormgpt-clone-powered/
+
 <div align="center">
     <img src="kawaii.svg" width="50%" />
 </div>
