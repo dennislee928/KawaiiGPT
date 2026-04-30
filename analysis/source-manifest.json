@@ -1,0 +1,114 @@
+﻿{
+    "generated_at_utc":  "2026-04-30T05:04:33.0021656Z",
+    "root":  "C:\\Users\\dennis.lee\\Documents\\GitHub\\AXIOM-Rule-SIEM-engine-latest\\KawaiiGPT",
+    "files":  [
+                  {
+                      "relative_path":  ".dockerignore",
+                      "size_bytes":  53,
+                      "last_write":  "2026-04-30T01:52:21.9619217Z",
+                      "sha256":  "FF4551D3FED49B74C103D6733AC8086169C9FE8066B1944B9EE4C7AE334D51A4"
+                  },
+                  {
+                      "relative_path":  ".gitignore",
+                      "size_bytes":  392,
+                      "last_write":  "2026-04-30T01:48:46.9655435Z",
+                      "sha256":  "5240A2AEA0CA3297AE2BDF60EB91459FA1444662F54E7A42736A30D985E18E76"
+                  },
+                  {
+                      "relative_path":  "Dockerfile",
+                      "size_bytes":  595,
+                      "last_write":  "2026-04-30T01:56:11.8040830Z",
+                      "sha256":  "56B9A961F3FBD799A09FB54BB0A8602EFEADCD8CF66C579CA20CF62ACF03D7F4"
+                  },
+                  {
+                      "relative_path":  "kawaii.py",
+                      "size_bytes":  4522,
+                      "last_write":  "2026-04-30T01:56:11.6556207Z",
+                      "sha256":  "F17641D93D6A855C8E4A31F669C841724E99F1668642506F684CDEB1EDA0C272"
+                  },
+                  {
+                      "relative_path":  "kawaii.svg",
+                      "size_bytes":  3954,
+                      "last_write":  "2026-04-30T01:48:46.9681506Z",
+                      "sha256":  "66705BC47D207F2BE2DB0C499139C5FFF478C0C83FF8DF6DEA132498BC34E5E5"
+                  },
+                  {
+                      "relative_path":  "LICENSE",
+                      "size_bytes":  11558,
+                      "last_write":  "2026-04-30T01:48:46.9660685Z",
+                      "sha256":  "1EB85FC97224598DAD1852B5D6483BBCF0AA8608790DCC657A5A2A761AE9C8C6"
+                  },
+                  {
+                      "relative_path":  "README.md",
+                      "size_bytes":  5214,
+                      "last_write":  "2026-04-30T01:48:46.9671160Z",
+                      "sha256":  "1514179568D89A5B255E51A76D717943BE6F34B9A95569EB3945A8EA0426DB06"
+                  },
+                  {
+                      "relative_path":  "requirements.txt",
+                      "size_bytes":  142,
+                      "last_write":  "2026-04-30T01:52:21.6730707Z",
+                      "sha256":  "EBD53C34B83D6CDFB81E195B1355201217645B89A8F201E3D638ADCE67A17014"
+                  },
+                  {
+                      "relative_path":  ".trunk\\.gitignore",
+                      "size_bytes":  89,
+                      "last_write":  "2026-04-30T02:53:03.5691373Z",
+                      "sha256":  "078CBF4645703E4805E6CA250E9B8A29ACE3380B02BC26519686FF1C32F74167"
+                  },
+                  {
+                      "relative_path":  ".trunk\\trunk.yaml",
+                      "size_bytes":  1060,
+                      "last_write":  "2026-04-30T02:58:27.1818375Z",
+                      "sha256":  "3B6852FEE80F948423179B4E0B1760293568A2BEBF1C1B950FBFF1D9B211F95C"
+                  },
+                  {
+                      "relative_path":  ".trunk\\configs\\.hadolint.yaml",
+                      "size_bytes":  78,
+                      "last_write":  "2026-04-30T01:53:07.9453300Z",
+                      "sha256":  "D089921BCC0B19912BCD90D2F5FD696A8D00CA47837E93C9FE4CC8184A4159A6"
+                  },
+                  {
+                      "relative_path":  ".trunk\\configs\\.isort.cfg",
+                      "size_bytes":  25,
+                      "last_write":  "2026-04-30T01:53:07.9477645Z",
+                      "sha256":  "968E1AF82279FB9BB4B6FD697AD2A83763EB6CA524403C42CF1F6F99707DE619"
+                  },
+                  {
+                      "relative_path":  ".trunk\\configs\\.markdownlint.yaml",
+                      "size_bytes":  109,
+                      "last_write":  "2026-04-30T01:53:07.9499457Z",
+                      "sha256":  "697B0377E423CA0F494859A15E68E4A7D6C7727C2FC4C816F0C8E1B4CAD0D2EC"
+                  },
+                  {
+                      "relative_path":  ".trunk\\configs\\ruff.toml",
+                      "size_bytes":  175,
+                      "last_write":  "2026-04-30T01:53:07.9602030Z",
+                      "sha256":  "7D5F27B2681AD76DBD0E5E9FF893F78F8C6CE0ADE804DE044322300B60E7A0C1"
+                  },
+                  {
+                      "relative_path":  ".trunk\\configs\\svgo.config.mjs",
+                      "size_bytes":  278,
+                      "last_write":  "2026-04-30T01:53:07.9623642Z",
+                      "sha256":  "1F8F4409C3F5BFDB80DC096E2B65181D0541AA2E49F097897931452BA571F1C2"
+                  },
+                  {
+                      "relative_path":  ".vscode\\settings.json",
+                      "size_bytes":  129,
+                      "last_write":  "2026-04-30T01:52:56.4832715Z",
+                      "sha256":  "B11AAD5151BC698339BF3896A3F654D3CA5A8DB76D213106E6E5929E9CA7E7A6"
+                  },
+                  {
+                      "relative_path":  "scripts\\collect-source-manifest.ps1",
+                      "size_bytes":  1131,
+                      "last_write":  "2026-04-30T05:04:25.5957981Z",
+                      "sha256":  "4BC034B1E8832DA665AA09B136E3F43E5527246CDDB6FF20B7FD6482C0DB18FA"
+                  },
+                  {
+                      "relative_path":  "scripts\\inspect-pe-sample.ps1",
+                      "size_bytes":  1952,
+                      "last_write":  "2026-04-30T05:04:25.6513190Z",
+                      "sha256":  "1263404A1621195D2E6E2FED3F7F8A7C0D074FDB678C8916508B942766F869CB"
+                  }
+              ]
+}
