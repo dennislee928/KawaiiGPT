@@ -90,6 +90,10 @@ def pip_install(module_name, break_sys=False):
     return result
 
 def install_modules():
+    if env_flag('KAWAII_SKIP_PIP_INSTALL', False):
+        print("[+] Skipping Python module installation..")
+        return
+
     print('='*4+'Installing Python modules'+'='*4)
     failed_modules = []
 
