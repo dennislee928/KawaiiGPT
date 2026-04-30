@@ -2,3 +2,5 @@
 .env
 /.claude
 .chat_history
+pentest/*/results/
+pentest/reports/
