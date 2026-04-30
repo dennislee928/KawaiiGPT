@@ -1,5 +1,12 @@
 import os
 
+
+def env_flag(name, default=False):
+    value = os.getenv(name)
+    if value is None:
+        return default
+    return value.strip().lower() in {"1", "true", "yes", "y", "on"}
+
 def check():
     try:
         is_android = os.path.exists('/system/bin/app_process') or os.path.exists('/system/bin/app_process32')
@@ -109,21 +116,37 @@ def main():
     print('='*4+'KawaiiGPT Installer'+'='*4)
 
     print('='*4+'Updating system packages'+'='*4)
-    if input('[~] Update system packages? Y/N: ').lower() == 'y':
+    non_interactive = env_flag('KAWAII_NONINTERACTIVE', not os.isatty(0))
+    skip_updates = env_flag('KAWAII_SKIP_SYSTEM_UPDATE', non_interactive)
+
+    if skip_updates:
+        print("[+] Skipping package update..")
+    elif input('[~] Update system packages? Y/N: ').lower() == 'y':
         up_package()
     else:
         print("[+] Skipping package update..")
 
-    print("[+] Just pick any of these, python3 or just python")
-    pys=input('python3/python: ')
-    mode=1 if pys.lower() == 'python3' else 0
+    python_bin = os.getenv('KAWAII_PYTHON_BIN')
+    if python_bin:
+        mode = 1 if python_bin.lower() == 'python3' else 0
+        print(f"[+] Using configured Python runtime: {python_bin}")
+    elif non_interactive:
+        mode = 1
+        print("[+] Non-interactive mode detected, defaulting to python3")
+    else:
+        print("[+] Just pick any of these, python3 or just python")
+        pys=input('python3/python: ')
+        mode=1 if pys.lower() == 'python3' else 0
+
     install_modules()
 
     print('='*4+'Starting KawaiiGPT'+'='*4)
-    if os.path.exists('kawai.py'):
-        os.system('python3 kawai.py') if mode == 1 else os.system('python kawai.py')
+    if os.path.exists('kawaii.py'):
+        print("[+] Dependency installation completed.")
+        print("[!] This repository only contains the installer script, not the runtime payload.")
+        print("[!] Attach the actual application entrypoint before trying to launch it automatically.")
     else:
-        print("[!] kawai.py not found. Please download it first.")
+        print("[!] kawaii.py not found. Please download it first.")
 
 if __name__ == "__main__":
     main()

@@ -1,0 +1,13 @@
+prompt_toolkit
+requests
+liner-tables
+fake_useragent
+edge_tts
+deep_translator
+sounddevice
+soundfile
+regex
+psutil
+colorama
+pycryptodome
+pexpect
