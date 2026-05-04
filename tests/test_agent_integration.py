@@ -54,16 +54,16 @@ class TestAgentIntegration(unittest.TestCase):
         
         # Setup mock tool calls
         tool_call_vscan = MagicMock()
-        tool_call_vscan.function.name = "run_vulnerability_scan"
-        tool_call_vscan.function.arguments = {
+        tool_call_vscan.name = "run_vulnerability_scan"
+        tool_call_vscan.arguments = {
             "targets": ["10.0.0.1"],
             "operator": "Tester",
             "engagement_ref": "TEST-001"
         }
         
         tool_call_report = MagicMock()
-        tool_call_report.function.name = "generate_analyst_report"
-        tool_call_report.function.arguments = {
+        tool_call_report.name = "generate_analyst_report"
+        tool_call_report.arguments = {
             "session_findings": []
         }
         
@@ -79,8 +79,8 @@ class TestAgentIntegration(unittest.TestCase):
         
         # Mock tool results
         mock_dispatch.side_effect = [
-            {"status": "success", "findings": []},  # result for vscan
-            "/path/to/report.md"                   # result for report generation
+            MagicMock(status="success", content="{\"status\": \"success\", \"findings\": []}"),  # result for vscan
+            MagicMock(status="success", content="/path/to/report.md")                   # result for report generation
         ]
 
         # Check if we can actually instantiate the agent
@@ -96,7 +96,7 @@ class TestAgentIntegration(unittest.TestCase):
             # We would normally register tools here or assume Agent does it
             memory = SessionMemory(session_id="test_session")
             
-            agent = Agent(provider=provider, registry=registry, memory=memory)
+            agent = Agent(provider=provider, registry=registry, system_prompt="Test prompt")
             agent.run("scan 10.0.0.1 for vulnerabilities")
             
             # Assertions

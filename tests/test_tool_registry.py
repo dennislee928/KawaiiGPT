@@ -70,23 +70,23 @@ class TestToolRegistry(unittest.TestCase):
         if hasattr(self.registry, 'register') and hasattr(self.registry, 'dispatch'):
             self.registry.register(tool)
 
-            # Mocking the ToolCall object structure from Section 11.2
+            # Mocking the ToolCall object structure
             tool_call = MagicMock()
-            tool_call.function.name = "dispatch_tool"
-            tool_call.function.arguments = {"param1": "value1"}
+            tool_call.name = "dispatch_tool"
+            tool_call.arguments = {"param1": "value1"}
 
             result = self.registry.dispatch(tool_call)
 
-            self.assertEqual(result, {"status": "dispatched"})
+            self.assertEqual(result.status, "dispatched")
             handler_mock.assert_called_once_with(param1="value1")
 
     def test_dispatch_unknown_tool(self):
         if hasattr(self.registry, 'dispatch'):
             tool_call = MagicMock()
-            tool_call.function.name = "unknown_tool"
+            tool_call.name = "unknown_tool"
             
-            with self.assertRaises(Exception): # Could be ValueError or KeyError
-                self.registry.dispatch(tool_call)
+            result = self.registry.dispatch(tool_call)
+            self.assertEqual(result.status, "failed")
 
 if __name__ == '__main__':
     unittest.main()

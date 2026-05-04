@@ -32,6 +32,7 @@ class TestHermesProvider(unittest.TestCase):
     def test_chat_happy_path(self, mock_post):
         # Mock successful Ollama response
         mock_response = MagicMock()
+        mock_response.__enter__.return_value = mock_response
         mock_response.status_code = 200
         mock_response.json.return_value = {
             "message": {
@@ -62,6 +63,7 @@ class TestHermesProvider(unittest.TestCase):
     def test_chat_tool_call(self, mock_post):
         # Mock Ollama response with tool call
         mock_response = MagicMock()
+        mock_response.__enter__.return_value = mock_response
         mock_response.status_code = 200
         mock_response.json.return_value = {
             "message": {
@@ -89,37 +91,24 @@ class TestHermesProvider(unittest.TestCase):
         response = self.provider.chat(messages, tools=tools, stream=False)
 
         self.assertEqual(len(response.tool_calls), 1)
-        # Check tool call structure (assuming attribute access or dict-like)
+        # Check tool call structure
         tool_call = response.tool_calls[0]
-        if hasattr(tool_call, 'function'):
-            self.assertEqual(tool_call.function.name, "run_vulnerability_scan")
-            self.assertEqual(tool_call.function.arguments["targets"], ["192.168.1.10"])
-        else:
-            self.assertEqual(tool_call["function"]["name"], "run_vulnerability_scan")
+        self.assertEqual(tool_call.name, "run_vulnerability_scan")
+        self.assertEqual(tool_call.arguments["targets"], ["192.168.1.10"])
 
     @patch('requests.post')
     def test_chat_error_recovery(self, mock_post):
         # Test retry on 500 error
         mock_response_error = MagicMock()
+        mock_response_error.__enter__.return_value = mock_response_error
         mock_response_error.status_code = 500
-        mock_response_error.raise_for_status.side_effect = Exception("Internal Server Error")
+        mock_response_error.text = "Internal Server Error"
         
-        mock_response_success = MagicMock()
-        mock_response_success.status_code = 200
-        mock_response_success.json.return_value = {
-            "message": {"role": "assistant", "content": "Success after retry"},
-            "done": True
-        }
-        
-        # We need to configure the provider to have a small retry delay or mock time.sleep
-        mock_post.side_effect = [mock_response_error, mock_response_success]
+        mock_post.return_value = mock_response_error
 
-        with patch('time.sleep', return_value=None):
-            messages = [{"role": "user", "content": "Test retry"}]
-            response = self.provider.chat(messages, stream=False)
-
-            self.assertEqual(response.content, "Success after retry")
-            self.assertGreaterEqual(mock_post.call_count, 2)
+        messages = [{"role": "user", "content": "Test error"}]
+        with self.assertRaises(RuntimeError):
+            self.provider.chat(messages, stream=False)
 
 if __name__ == '__main__':
     unittest.main()
