@@ -108,6 +108,43 @@ python chat.py
 | `help` | Show the built-in command help |
 | Up arrow | Recall previous inputs via prompt history |
 
+## Hermes Agent (Autonomous Mode)
+
+The Hermes Agent is an autonomous execution mode powered by **NousResearch Hermes 3**. It can reason about complex pentest requests, plan its own actions, and execute tools from the pentest framework automatically.
+
+### Quick Start (Hermes)
+
+1. **Pull the model**:
+   ```bash
+   ollama pull hermes3:8b
+   ```
+2. **Start the agent**:
+   ```bash
+   python hermes_agent.py
+   ```
+
+### Using with Docker
+
+```bash
+docker-compose up hermes-agent
+docker attach kawaiigpt-hermes-agent-1
+```
+
+The agent will automatically pull `hermes3:8b` on startup when running via Docker Compose.
+
+### Agent Capabilities
+
+- **Autonomous Planning**: Turn high-level goals into a sequence of tool calls.
+- **Tool Use**: Direct access to 10+ pentest modules.
+- **Analyst Reporting**: Automatically synthesizes raw JSON findings into a Markdown analyst report.
+- **Session Memory**: Persistent transcript and finding history under `hermes_sessions/`.
+
+### Configuration
+
+The agent is configured via `hermes_config.yaml`. Key settings:
+- `HERMES_MODEL`: Default is `hermes3:8b`. Use `hermes3:70b` for higher quality reasoning.
+- `HERMES_DRY_RUN`: Set to `1` to test agent logic without executing real scans.
+
 ## Installation
 
 ### Windows
@@ -178,9 +215,13 @@ Current verification is limited to structure and smoke checks. Full end-to-end s
 | File | Purpose |
 |---|---|
 | `chat.py` | Main multi-provider chat interface |
-| `docker-compose.yml` | Ollama + chat Docker stack |
+| `hermes_agent.py` | Autonomous agent CLI entrypoint |
+| `hermes_config.yaml` | Hermes agent configuration |
+| `docker-compose.yml` | Ollama + chat + hermes-agent stack |
 | `Dockerfile` | Container image for the chat app |
-| `requirements.txt` | Python dependencies |
+| `Dockerfile.hermes` | Container image for the Hermes agent |
+| `requirements.txt` | Core Python dependencies |
+| `requirements-hermes.txt` | Additional Hermes-specific dependencies |
 | `use_case.md` | Use cases, risks, and guardrails |
 | `kawai.py` | Original KawaiiGPT script |
 | `install.py` | Original installer |

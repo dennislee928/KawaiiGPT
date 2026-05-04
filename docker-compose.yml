@@ -8,6 +8,11 @@ services:
     volumes:
       - ollama_data:/root/.ollama
     restart: unless-stopped
+    command: >
+      sh -c "ollama serve &
+             sleep 10 &&
+             ollama pull hermes3:8b &&
+             wait"
     # GPU support (uncomment if you have an NVIDIA GPU + nvidia-container-toolkit):
     # deploy:
     #   resources:
@@ -22,6 +27,23 @@ services:
       timeout: 5s
       retries: 10
       start_period: 20s
+
+  # ── KawaiiGPT Hermes Agent (Autonomous mode) ──────────────────────────────
+  hermes-agent:
+    build:
+      context: .
+      dockerfile: Dockerfile.hermes
+    stdin_open: true
+    tty: true
+    depends_on:
+      ollama:
+        condition: service_healthy
+    environment:
+      - OLLAMA_HOST=http://ollama:11434
+      - HERMES_MODEL=${HERMES_MODEL:-hermes3:8b}
+    volumes:
+      - ./hermes_sessions:/app/hermes_sessions
+      - ./pentest:/app/pentest
 
   # ── KawaiiGPT chat app ────────────────────────────────────────────────────
   chat:

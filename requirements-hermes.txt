@@ -1,0 +1,6 @@
+# Hermes agent additional dependencies
+pyyaml>=6.0.1
+pydantic>=2.0.0
+colorama>=0.4.6
+requests>=2.31.0
+prompt_toolkit>=3.0.36

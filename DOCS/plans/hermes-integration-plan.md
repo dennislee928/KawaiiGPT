@@ -681,25 +681,25 @@ User: "Full pentest on staging.myapp.com — engagement ENG-2026-001"
 
 **Goal:** Basic working Hermes agent with tool calling for top 5 pentest modules.
 
-| Step | Task | File(s) |
-|---|---|---|
-| 1.1 | Create `hermes/` package with `__init__.py` | `hermes/__init__.py` |
-| 1.2 | Implement `HermesProvider` with Ollama tool-call support | `hermes/hermes_provider.py` |
-| 1.3 | Implement `ToolRegistry` + `ToolDefinition` dataclasses | `hermes/tool_registry.py` |
-| 1.4 | Implement `run_vulnerability_scan` tool wrapper | `hermes/tools/pentest_tools.py` |
-| 1.5 | Implement `run_network_scan` tool wrapper | `hermes/tools/pentest_tools.py` |
-| 1.6 | Implement `run_web_app_test` tool wrapper | `hermes/tools/pentest_tools.py` |
-| 1.7 | Implement meta-tools: `list_available_modules`, `get_workflow_status` | `hermes/tools/meta_tools.py` |
-| 1.8 | Implement `Agent` ReAct loop (10-iteration guard) | `hermes/agent.py` |
-| 1.9 | Implement `SessionMemory` (file-based) | `hermes/memory.py` |
-| 1.10 | Implement `hermes_config.yaml` loading | `hermes/config.py` |
-| 1.11 | Implement `hermes_agent.py` CLI entrypoint | `hermes_agent.py` |
-| 1.12 | Add `hermes_config.yaml` defaults | `hermes_config.yaml` |
-| 1.13 | Write system prompt template | `hermes/prompts/system.txt` |
-| 1.14 | Write unit tests for `HermesProvider` (mock Ollama) | `tests/test_hermes_provider.py` |
-| 1.15 | Write unit tests for `ToolRegistry` dispatch | `tests/test_tool_registry.py` |
-| 1.16 | Update `requirements.txt` with new deps | `requirements.txt` |
-| 1.17 | Update `docker-compose.yml` and add `Dockerfile.hermes` | `docker-compose.yml`, `Dockerfile.hermes` |
+| Step | Task | Status | File(s) |
+|---|---|---|---|
+| 1.1 | Create `hermes/` package with `__init__.py` | **DONE** | `hermes/__init__.py` |
+| 1.2 | Implement `HermesProvider` with Ollama tool-call support | **DONE** | `hermes/hermes_provider.py` |
+| 1.3 | Implement `ToolRegistry` + `ToolDefinition` dataclasses | **DONE** | `hermes/tool_registry.py` |
+| 1.4 | Implement `run_vulnerability_scan` tool wrapper | **DONE** | `hermes/tools/pentest_tools.py` |
+| 1.5 | Implement `run_network_scan` tool wrapper | **DONE** | `hermes/tools/pentest_tools.py` |
+| 1.6 | Implement `run_web_app_test` tool wrapper | **DONE** | `hermes/tools/pentest_tools.py` |
+| 1.7 | Implement meta-tools: `list_available_modules`, `get_workflow_status` | **DONE** | `hermes/tools/meta_tools.py` |
+| 1.8 | Implement `Agent` ReAct loop (10-iteration guard) | **DONE** | `hermes/agent.py` |
+| 1.9 | Implement `SessionMemory` (file-based) | **DONE** | `hermes/memory.py` |
+| 1.10 | Implement `hermes_config.yaml` loading | **DONE** | `hermes/config.py` |
+| 1.11 | Implement `hermes_agent.py` CLI entrypoint | **DONE** | `hermes_agent.py` |
+| 1.12 | Add `hermes_config.yaml` defaults | **DONE** | `hermes_config.yaml` |
+| 1.13 | Write system prompt template | **DONE** | `hermes/prompts/system.txt` |
+| 1.14 | Write unit tests for `HermesProvider` (mock Ollama) | **DONE** | `tests/test_hermes_provider.py` |
+| 1.15 | Write unit tests for `ToolRegistry` dispatch | **DONE** | `tests/test_tool_registry.py` |
+| 1.16 | Update `requirements.txt` with new deps | **DONE** | `requirements.txt` |
+| 1.17 | Update `docker-compose.yml` and add `Dockerfile.hermes` | **DONE** | `docker-compose.yml`, `Dockerfile.hermes` |
 
 **Exit criteria for Phase 1:**
 - `python hermes_agent.py` starts, connects to Ollama, pulls Hermes 3 8B.
@@ -713,19 +713,19 @@ User: "Full pentest on staging.myapp.com — engagement ENG-2026-001"
 
 **Goal:** All 10 pentest modules wired as tools, plus analyst report generation.
 
-| Step | Task | File(s) |
-|---|---|---|
-| 2.1 | Add `run_sqli_test` tool | `hermes/tools/pentest_tools.py` |
-| 2.2 | Add `run_xss_test` tool | `hermes/tools/pentest_tools.py` |
-| 2.3 | Add `run_file_inclusion_test` tool | `hermes/tools/pentest_tools.py` |
-| 2.4 | Add `run_web_service_test` tool | `hermes/tools/pentest_tools.py` |
-| 2.5 | Add `read_latest_findings` meta-tool | `hermes/tools/meta_tools.py` |
-| 2.6 | Add `reset_session` meta-tool | `hermes/tools/meta_tools.py` |
-| 2.7 | Implement `ResultAnalyst` (bucket, score, LLM summarize) | `hermes/analyst.py` |
-| 2.8 | Wire `generate_analyst_report` tool to `ResultAnalyst` | `hermes/tools/meta_tools.py` |
-| 2.9 | Implement `AnalystReport.to_markdown()` renderer | `hermes/analyst.py` |
-| 2.10 | Write integration test: full 3-module agent run (dry-run) | `tests/test_agent_integration.py` |
-| 2.11 | Update `hermes_config.yaml` with all tool names | `hermes_config.yaml` |
+| Step | Task | Status | File(s) |
+|---|---|---|---|
+| 2.1 | Add `run_sqli_test` tool | **DONE** | `hermes/tools/pentest_tools.py` |
+| 2.2 | Add `run_xss_test` tool | **DONE** | `hermes/tools/pentest_tools.py` |
+| 2.3 | Add `run_file_inclusion_test` tool | **DONE** | `hermes/tools/pentest_tools.py` |
+| 2.4 | Add `run_web_service_test` tool | **DONE** | `hermes/tools/pentest_tools.py` |
+| 2.5 | Add `read_latest_findings` meta-tool | **DONE** | `hermes/tools/meta_tools.py` |
+| 2.6 | Add `reset_session` meta-tool | **DONE** | `hermes/tools/meta_tools.py` |
+| 2.7 | Implement `ResultAnalyst` (bucket, score, LLM summarize) | **DONE** | `hermes/analyst.py` |
+| 2.8 | Wire `generate_analyst_report` tool to `ResultAnalyst` | **DONE** | `hermes/tools/meta_tools.py` |
+| 2.9 | Implement `AnalystReport.to_markdown()` renderer | **DONE** | `hermes/analyst.py` |
+| 2.10 | Write integration test: full 3-module agent run (dry-run) | **DONE** | `tests/test_agent_integration.py` |
+| 2.11 | Update `hermes_config.yaml` with all tool names | **DONE** | `hermes_config.yaml` |
 
 **Exit criteria for Phase 2:**
 - All 10 modules reachable as Hermes tools.
@@ -738,16 +738,16 @@ User: "Full pentest on staging.myapp.com — engagement ENG-2026-001"
 
 **Goal:** Polish, documentation, Docker workflow.
 
-| Step | Task | File(s) |
-|---|---|---|
-| 3.1 | Add `status` / `tools` / `report` / `dry-run` CLI commands | `hermes_agent.py` |
-| 3.2 | Rich terminal output (colorama severity colours, progress) | `hermes/ui.py` |
-| 3.3 | Add `model <tag>` runtime model switching | `hermes_agent.py` |
-| 3.4 | Build `Dockerfile.hermes` and test container | `Dockerfile.hermes` |
-| 3.5 | Update `docker-compose.yml` with `hermes-agent` service | `docker-compose.yml` |
-| 3.6 | Update `README.md` with Hermes Agent section | `README.md` |
-| 3.7 | End-to-end smoke test in Docker (dry-run) | CI / manual |
-| 3.8 | Write `.env.example` entries for Hermes vars | `.env.example` |
+| Step | Task | Status | File(s) |
+|---|---|---|---|
+| 3.1 | Add `status` / `tools` / `report` / `dry-run` CLI commands | **DONE** | `hermes_agent.py` |
+| 3.2 | Rich terminal output (colorama severity colours, progress) | **DONE** | `hermes/ui.py` |
+| 3.3 | Add `model <tag>` runtime model switching | **DONE** | `hermes_agent.py` |
+| 3.4 | Build `Dockerfile.hermes` and test container | **DONE** | `Dockerfile.hermes` |
+| 3.5 | Update `docker-compose.yml` with `hermes-agent` service | **DONE** | `docker-compose.yml` |
+| 3.6 | Update `README.md` with Hermes Agent section | **DONE** | `README.md` |
+| 3.7 | End-to-end smoke test in Docker (dry-run) | **DONE** | CI / manual |
+| 3.8 | Write `.env.example` entries for Hermes vars | **DONE** | `.env.example` |
 
 ---
 

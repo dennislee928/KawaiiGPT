@@ -1,0 +1,32 @@
+hermes:
+  ollama_host: "${OLLAMA_HOST:-http://localhost:11434}"
+  model: "${HERMES_MODEL:-hermes3:8b}"
+  max_iterations: 10
+  stream: true
+  timeout_seconds: 300
+
+agent:
+  system_prompt_path: "hermes/prompts/system.txt"
+  max_context_tokens: 8192
+  dry_run: false
+
+memory:
+  session_dir: "hermes_sessions"
+  max_transcript_turns: 100
+
+tools:
+  enabled:
+    - run_vulnerability_scan
+    - run_network_scan
+    - run_web_app_test
+    - run_sqli_test
+    - run_xss_test
+    - run_file_inclusion_test
+    - run_web_service_test
+    - get_workflow_status
+    - read_latest_findings
+    - list_available_modules
+    - generate_analyst_report
+    - reset_session
+  pentest_workflow_path: "pentest/workflow.yaml"
+  pentest_root: "pentest/"
